@@ -1,0 +1,3 @@
+[submodule "cWebshots"]
+	path = cWebshots
+	url = https://github.com/setaou/cWebshots.git
