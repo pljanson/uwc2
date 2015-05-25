@@ -1,6 +1,6 @@
-/*
+ï»¿/*
     Ultimate Webshots Converter 2.0
-    Copyright (C) 2006  Hervé "Setaou" BRY <uwc at apinc dot org>
+    Copyright (C) 2006  Herve "Setaou" BRY <uwc at apinc dot org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,16 +21,22 @@
 #include "MetaDataWidget.h"
 // Qt
 #include <QtGui>
+//plj:
+#include <QSpinBox>
+#include <QLineEdit>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QHeaderView>
 
 MetaDataWidget::MetaDataWidget(QWidget *parent) : QWidget(parent)
 {
 	// Table
 	tblProperties = new QTableWidget(0, 1, this);
 	tblProperties->setSelectionMode(QAbstractItemView::NoSelection);
-	tblProperties->verticalHeader()->setClickable(false);
-	tblProperties->verticalHeader()->setResizeMode(QHeaderView::Custom);
-	tblProperties->horizontalHeader()->setClickable(false);
-	tblProperties->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+    tblProperties->verticalHeader()->setSectionsClickable(false);
+    tblProperties->verticalHeader()->setSectionResizeMode(QHeaderView::Custom);
+    tblProperties->horizontalHeader()->setSectionsClickable(false);
+    tblProperties->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 	tblProperties->horizontalHeader()->hide();
 
 	// Combobox and buttons
@@ -71,14 +77,14 @@ void MetaDataWidget::setMetaData(cWebshots::MetaData metadata)
 	std::vector<std::string> v = metadata.listKeys();
 
 	// Adjust the number of rows
-	for (int i = tblProperties->rowCount(); i < v.size(); i++)
+    for (unsigned int i = tblProperties->rowCount(); i < v.size(); i++)
 		tblProperties->insertRow(tblProperties->rowCount());
-	for (int i = tblProperties->rowCount(); i > v.size(); i--)
+    for (unsigned int i = tblProperties->rowCount(); i > v.size(); i--)
 		tblProperties->removeRow(tblProperties->rowCount() - 1);
 
 	// Populate rows
 	QStringList headers;
-	for (int i = 0; i < v.size(); i++)
+    for (unsigned int i = 0; i < v.size(); i++)
 	{
 		// Add the row header to the list
 		headers << QString::fromStdString(v.at(i));
@@ -135,7 +141,10 @@ void MetaDataWidget::setMetaData(cWebshots::MetaData metadata)
 				widget->setCurrentIndex(dat.toBool() ? 0 : 1);
 				tblProperties->setCellWidget(i, 0,  widget);
 				connect(widget, SIGNAL(currentIndexChanged(int)), this, SLOT(updateProperty()));
+                break;
 			}
+        default:
+            break;
 		}
 	}
 
@@ -158,7 +167,7 @@ void MetaDataWidget::updateProperty()
 	bool changed = false;
 
 	// Check if the value of the widgets have changed and update metadata if necessary
-	for (int i = 0; i < v.size(); i++)
+    for (unsigned int i = 0; i < v.size(); i++)
 	{
 		cWebshots::Datum dat = metadata.get(v.at(i));
 		switch (dat.getType())
@@ -186,7 +195,7 @@ void MetaDataWidget::updateProperty()
 		case cWebshots::Datum::type_date:
 			{
 				QDateEdit* widget = (QDateEdit*)tblProperties->cellWidget(i, 0);
-				if (dat.toDate() != QDateTime(widget->date()).toTime_t())
+                if (dat.toDate() != (int)QDateTime(widget->date()).toTime_t())
 				{
 					changed = true;
 					metadata.setDate(dat.getKey(), QDateTime(widget->date()).toTime_t());
@@ -201,7 +210,10 @@ void MetaDataWidget::updateProperty()
 					changed = true;
 					metadata.setBool(dat.getKey(), widget->currentIndex() == 0);
 				}
+                break;
 			}
+        default:
+            break;
 		}		
 	}
 
@@ -227,7 +239,7 @@ void MetaDataWidget::setAvailableKeys(std::vector<cWebshots::Datum::KeyType> key
 	cmbList->clear();
 
 	// Populate the list
-	for (int i = 0; i < keys.size(); i++)
+    for (unsigned int i = 0; i < keys.size(); i++)
 		cmbList->addItem(QString::fromStdString(keys.at(i).key));
 }
 
@@ -254,6 +266,8 @@ void MetaDataWidget::addClicked()
 	case cWebshots::Datum::type_string:
 		meta.setString(keys.at(cmbList->currentIndex()).key, "");
 		break;
+    default:
+        break;
 	}
 
 	setMetaData(meta);

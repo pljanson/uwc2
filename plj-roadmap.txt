@@ -1,0 +1,72 @@
+UWC2 PLJ
+--------
+v Get compiling on Qt5.4 and QtCreator!
+v add about window
+
+FEATURE Export Webshots Archive
+    batch" like function, export complete webshots collection
+v add export collection menu item
+v implement window for settings
+  v source dir
+  v dest dir   //Error: if dest dir is source dir
+  v start button //enable / disable startbutton
+v implement action function, fixed output format
+  out dir format: dest\category\album\
+  out file format: "id-title.jpg"
+  logoutput for now qDebug :)
+v source loop
+  v loop root/subdirs
+  v Implement the  copyTxt, extractWB1, copyJPG,
+    use cWebshots TXT & Picture
+v add additional GUI items
+  v toggle thumbs on/off
+  v toggle copy  album & photo files
+  v stop on error
+v add log output: in window / logfile?
+
+. put in Local Gt & QNAP Git
+
+. option: variable output names (dir & file)
+        idea: use javascipt and interface (to try QScript :)
+        http://doc.qt.io/qt-5/qtscript-index.html
+
+. option: add to sqlite & generate csv file
+    containing all image details
+. option: add tags to jpg file; exiflib?
+
+> Email : Hervé BRY setaou, via Github
+  https://github.com/setaou/uwc2
+
+  http://uwc.setaou.net
+  setaou@setaou.net How to contribute?
+
+  as Collaborators OR Contributors? (Maintainers and)
+    https://github.com/joindin/joind.in/wiki/How-to-Contribute-Code
+    https://guides.github.com/activities/contributing-to-open-source/
+    https://guides.github.com/features/issues/
+    https://help.github.com/articles/setting-guidelines-for-repository-contributors/
+
+- add unit tests
+- implement batch processing
+- implement language
+
+- = - = - = - = - = - = - = - = -
+ROADMAP
+-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
+- UWC2! move cWebshots to seperate project and lib.
+  link static in UWC2, builds as dll in own project.
+- add "batch" like function, export complete webshots collection
+- C++11 compiler check, auto, lambda, range-based for loop
+        auto glambda = [](auto a, auto&& b) { return a < b; };
+        bool b = glambda(3, 3.14); // OK
+        http://en.cppreference.com/w/cpp/language/range-for
+        http://en.cppreference.com/w/cpp/language/auto
+
+= - = - = - = - = - = - = - = - =
+INFO
+-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
+if album: txt files, ph*.<extEnum> th*.<extEnum>
+  extEnum : jpg wb1 wbd?
+        .WBC and .WBP - Webshots Collections
+        .WBZ - Downloaded Webshots pictures
+        .WB1 and .WBD - Webshots pictures

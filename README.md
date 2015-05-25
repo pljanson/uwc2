@@ -1,4 +1,4 @@
-Ultimate Webshots Converter 2
+﻿Ultimate Webshots Converter 2
 =============================
 
 Ultimate Webshots Converter (also known under the short name "UWC"), is a Webshots pictures converter (see www.webshots.com).

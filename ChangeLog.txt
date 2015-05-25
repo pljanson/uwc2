@@ -1,0 +1,5 @@
+2015-05-25 prepare for fork in github
+- made it Qt5.4 & QtCreator compiling (using mingw C++11)
+  - utf8files needed for QtCreator so all files touched.
+- added Export Webshots archive feature & aboutbox
+

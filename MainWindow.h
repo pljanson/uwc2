@@ -1,6 +1,6 @@
-/*
+ï»¿/*
     Ultimate Webshots Converter 2.0
-    Copyright (C) 2006  Hervé "Setaou" BRY <uwc at apinc dot org>
+    Copyright (C) 2006  Herve "Setaou" BRY <uwc at apinc dot org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #include <QToolBar>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QMenuBar>
 
 class MainWindow : public QMainWindow
 {
@@ -46,6 +47,8 @@ class MainWindow : public QMainWindow
 	private slots:
 	void newFile();
 	void openFile();
+    void exportArchive();
+    void batchConvert();
 	void showConversionWnd();
 	void showLanguageDlg();
 	void quit();
@@ -57,6 +60,7 @@ class MainWindow : public QMainWindow
 	QAction *actOpen;
 	QAction *actNew;
 	QAction *actConvert;
+    QAction *actExport;
 	QAction *actLanguage;
 	QAction *actQuit;
 	QAction *actAbout;

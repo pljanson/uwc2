@@ -1,6 +1,6 @@
-/*
+ï»¿/*
     Ultimate Webshots Converter 2.0
-    Copyright (C) 2006  Hervé "Setaou" BRY <uwc at apinc dot org>
+    Copyright (C) 2006  Herve "Setaou" BRY <uwc at apinc dot org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ int CollectionModel::rowCount(const QModelIndex &parent) const
 QVariant CollectionModel::data(const QModelIndex &index, int role) const
 {
 	// If the index is invalid or out of bounds
-	if ((!index.isValid()) || (index.row() >= ptrCollection->pictureCount()) || (index.column() != 0))
+    if ((!index.isValid()) || (index.row() >= (int)ptrCollection->pictureCount()) || (index.column() != 0))
 		return QVariant();
 
 	switch (role)
@@ -101,7 +101,7 @@ void CollectionModel::add(cWebshots::Collection &collection)
 	endInsertRows();	
 }
 
-// TODO : Vérifier la validité de l'index
+// TODO : verifier la validite l'index
 void CollectionModel::remove(const QModelIndex &index)
 {
 	beginRemoveRows(QModelIndex(), index.row(), index.row());
@@ -112,14 +112,14 @@ void CollectionModel::remove(const QModelIndex &index)
 	endRemoveRows();
 }
 
-// TODO : Vérifier la validité de l'index
+// TODO : Verifier la validite l'index
 void CollectionModel::update(const QModelIndex &index)
 {
 	collectionHasChanged = true;
 	emit dataChanged(index, index);
 }
 
-// TODO : Vérifier la validité de l'index
+// TODO : Verifier la validite l'index
 cWebshots::Picture* CollectionModel::picture(const QModelIndex &index)
 {
 	return &(ptrCollection->picture(index.row()));

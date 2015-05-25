@@ -1,6 +1,6 @@
-/*
+ï»¿/*
     Ultimate Webshots Converter 2.0
-    Copyright (C) 2006  Hervé "Setaou" BRY <uwc at apinc dot org>
+    Copyright (C) 2006  Herve "Setaou" BRY <uwc at apinc dot org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,9 +20,14 @@
 
 // Qt
 #include <QtGui>
+#include <QFileDialog>
+#include <QMessageBox>
+
 // Window
 #include "MainWindow.h"
 #include "CollectionWindow.h"
+#include "ExportWindow.h"
+//#include "ConvertWindow.h"
 #include "LoadingDialog.h"
 #include "Misc.h"
 
@@ -47,10 +52,14 @@ MainWindow::MainWindow()
 	actNew = new QAction(QIcon(":/images/filenew.png"), "&New", this);
 	connect(actNew, SIGNAL(triggered()), this, SLOT(newFile()));
 	actConvert = new QAction(QIcon(":/images/convert.png"), "Batch &Conversion", this);
+    connect(actConvert, SIGNAL(triggered()), this, SLOT(batchConvert()));
+    actExport = new QAction(QIcon(":/images/export.png"), "Archive &Export", this);
+    connect(actExport, SIGNAL(triggered()), this, SLOT(exportArchive()));
 	actLanguage = new QAction(QIcon(":/images/configure.png"), "&Language", this);
 	actQuit = new QAction(QIcon(":/images/exit.png"), "&Quit", this);
 	connect(actQuit, SIGNAL(triggered()), this, SLOT(quit()));
 	actAbout = new QAction(QIcon(":/images/info.png"), "&About", this);
+    connect(actAbout, SIGNAL(triggered()), this, SLOT(showAboutDlg()));
 		
 	// Toolbar
 	tlbMain = addToolBar("Main");
@@ -59,6 +68,7 @@ MainWindow::MainWindow()
 	tlbMain->addAction(actOpen);
 	tlbMain->addSeparator();
 	tlbMain->addAction(actConvert);
+    tlbMain->addAction(actExport);
 	tlbMain->addSeparator();
 	tlbMain->addAction(actAbout);
 	
@@ -70,10 +80,13 @@ MainWindow::MainWindow()
 	mnuFile->addAction(actQuit);	
 	mnuConvert = menuBar()->addMenu("&Convert");
 	mnuConvert->addAction(actConvert);
+    mnuConvert->addAction(actExport);
 	mnuSettings = menuBar()->addMenu("&Settings");
 	mnuSettings->addAction(actLanguage);
 	mnuAbout = menuBar()->addMenu("?");
 	mnuAbout->addAction(actAbout);
+    //mnuAbout->addAction(actWebsite);
+    //mnuAbout->addAction(actContact);
 }
 
 void MainWindow::newFile()
@@ -88,6 +101,18 @@ void MainWindow::openFile()
 
 	if (!filenames.isEmpty())
 		loadFiles(QStringList(filenames));
+}
+
+void MainWindow::exportArchive()
+{
+    ExportWindow *wndExport = new ExportWindow();
+    wndExport->show();
+}
+
+void MainWindow::batchConvert()
+{
+    //ConvertWindow *wndConvert = new ConvertWindow();
+    //wndConvert->show();
 }
 
 void MainWindow::showConversionWnd()
@@ -105,6 +130,20 @@ void MainWindow::quit()
 
 void MainWindow::showAboutDlg()
 {
+    //QMessageBox messageBox(this);
+
+    QMessageBox msgBox;
+    QString msg =  QString("%1%2%3%4%5%6%7%8")
+            .arg("<b>Ultimate Webshots Converter</b><br/>")
+            .arg("Version 2.0 beta 2<br/><br/>")
+            .arg("(c)2003-2007 Setaou<br/>")
+            .arg("(c)2015 PLJ<br/><br/>")
+            .arg("<a href=\"https://github.com/setaou/uwc2\">https://github.com/setaou/uwc2</a><br/><br/>")
+            .arg("Thanks to:")
+            .arg("<ul><li>The Qt Community for excelent tooling</li>")
+            .arg("<li>Setaou for opensourcing the beta</li></ul>");
+    msgBox.setText(msg);
+    msgBox.exec();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)

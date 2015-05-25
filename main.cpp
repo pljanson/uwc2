@@ -1,6 +1,6 @@
-/*
+ï»¿/*
     Ultimate Webshots Converter 2.0
-    Copyright (C) 2006  Hervé "Setaou" BRY <uwc at apinc dot org>
+    Copyright (C) 2006  Herve "Setaou" BRY <uwc at apinc dot org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,15 +22,55 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QDebug>
+#include <QDateTime>
+
 // Window
 #include "MainWindow.h"
+
 // cWebshots
 #include "cWebshots/Exceptions.h"
 
 #define UWC_DEBUG
 
+/*
+//debug to logfile by
+// http://www.qt-coding.com/2013/08/06/tip-of-the-day-redirect-qdebug-to-a-file/
+void customMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+   Q_UNUSED(context);
+
+   QString dt = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm:ss");
+   QString txt = QString("[%1] ").arg(dt);
+
+   switch (type)
+   {
+      case QtDebugMsg:
+         txt += QString("{Debug} \t\t %1").arg(msg);
+         break;
+      case QtWarningMsg:
+         txt += QString("{Warning} \t %1").arg(msg);
+         break;
+      case QtCriticalMsg:
+         txt += QString("{Critical} \t %1").arg(msg);
+         break;
+      case QtFatalMsg:
+         txt += QString("{Fatal} \t\t %1").arg(msg);
+         abort();
+         break;
+   }
+
+   QFile outFile("LogFile.log");
+   outFile.open(QIODevice::WriteOnly | QIODevice::Append);
+
+   QTextStream textStream(&outFile);
+   textStream << txt << endl;
+}
+*/
+
 int main(int argc, char *argv[])
 {
+    //qInstallMessageHandler(customMessageHandler);
+
 	QApplication app(argc, argv);
 
 	MainWindow *wndMain = new MainWindow;

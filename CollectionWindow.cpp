@@ -1,6 +1,6 @@
-/*
+ï»¿/*
     Ultimate Webshots Converter 2.0
-    Copyright (C) 2006  Hervé "Setaou" BRY <uwc at apinc dot org>
+    Copyright (C) 2006  Herve "Setaou" BRY <uwc at apinc dot org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,9 +19,14 @@
 
 
 #include <QtGui>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QMenuBar>
 #include "CollectionWindow.h"
 #include "Misc.h"
 #include "MetaDataDialog.h"
+
+using namespace cWebshots;
 
 CollectionWindow::CollectionWindow(const QString filename)
 {
@@ -212,13 +217,13 @@ void CollectionWindow::saveAllPictures()
 	{
 		QString path = QFileDialog::getExistingDirectory(
 						this,
-						"Save all pictures",
-						"",
-						QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+                        "Save all pictures",
+                        "",
+                        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
 		if (!path.isEmpty())
 		{
-			for (int i = 0; i < Collection.pictureCount(); i++)
+            for (unsigned int i = 0; i < Collection.pictureCount(); i++)
 			{
 				QString filename;
 
@@ -380,7 +385,10 @@ void CollectionWindow::collectionMetaData()
 	dia->setMetaData(Collection.metaData());
 
 	if (dia->exec() == MetaDataDialog::Accepted)
-		Collection.setMetaData(dia->metaData());
-
+    {
+        //Collection.setMetaData( dia->metaData() ); //TODO plj better
+        cWebshots::MetaData md = dia->metaData();
+        Collection.setMetaData( md );
+    }
 	delete dia;
 }

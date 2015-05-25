@@ -1,6 +1,6 @@
-/*
+ï»¿/*
     Ultimate Webshots Converter 2.0
-    Copyright (C) 2006  Hervé "Setaou" BRY <uwc at apinc dot org>
+    Copyright (C) 2006  Herve "Setaou" BRY <uwc at apinc dot org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #include "PropertiesWidget.h"
 // Qt
 #include <QtGui>
+#include<QHBoxLayout>
 
 PropertiesWidget::PropertiesWidget(CollectionModel *mdlCollection, QWidget *parent) : QWidget(parent)
 {
@@ -28,9 +29,13 @@ PropertiesWidget::PropertiesWidget(CollectionModel *mdlCollection, QWidget *pare
 	metadata->setAvailableKeys(cWebshots::Picture::availableKeys());
 	metadata->setEnabled(false);
 
+
 	grpBox = new QGroupBox(this);
 	grpBox->setTitle("Picture Metadata");
-	grpBox->setLayout(new QHBoxLayout);
+    grpBox->setLayout(new QHBoxLayout);
+    //QHBoxLayout *grid = new QHBoxLayout;
+    //grpBox->setLayout(grid);
+
 	grpBox->layout()->addWidget(metadata);
 
 	// Main Layout
@@ -70,8 +75,9 @@ void PropertiesWidget::updateProperty()
 	if (index.isValid() && metadata->isEnabled())
 	{
 		cWebshots::Picture *picture = mdlCollection->picture(index);
-
-		picture->setMetaData(metadata->metaData());
+        //picture->setMetaData(metadata->metaData()); //PLJ TODO better
+        cWebshots::MetaData md = metadata->metaData();
+        picture->setMetaData(md);
 
 		mdlCollection->update(index);
 	}
