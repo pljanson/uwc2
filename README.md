@@ -3,7 +3,7 @@ Ultimate Webshots Converter 2 (Qt5.5)
 This is a fork of the original at https://github.com/setaou/uwc2/.
 This version is now compiling with Qt5.5 and using QtCreator (mingw C++11).
 
-Not all original (1.6) features are implemented yet. But I've added the about dialog
+Not all original (1.6) features are implemented yet. Comapred to the old Qt4 beta, I've added the about dialog
 and an export webshots archive feature. This exports an orginal "Webshots Data" directory to an output directory which will contain a directory tree of collection/album subdirectories, and jpg files with filenames ph%ID%-%Title%.jpg
 
 Old info:
